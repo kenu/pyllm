@@ -1,0 +1,37 @@
+[project]
+name = "cloud-deployment"
+version = "0.1.0"
+description = "클라우드와 배포 - AWS/GCP, Docker"
+dependencies = [
+    "boto3>=1.34.0",
+    "google-cloud-functions>=1.13.0",
+    "google-cloud-storage>=2.10.0",
+    "google-cloud-pubsub>=2.19.0",
+    "flask>=3.0.0",
+    "fastapi>=0.104.0",
+    "uvicorn>=0.24.0",
+    "prometheus-client>=0.19.0",
+    "redis>=5.0.0",
+    "psycopg2-binary>=2.9.0",
+    "cryptography>=41.0.0",
+    "pydantic>=2.5.0",
+    "aiohttp>=3.9.0",
+    "asyncio-throttle>=1.0.2",
+    "structlog>=23.2.0",
+    "python-dotenv>=1.0.0"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "jupyter>=1.0.0",
+    "ipykernel>=6.25.0",
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.7.0"
+]
