@@ -1,5 +1,5 @@
-import mysql.connector
-from mysql.connector import Error
+import pymysql
+from pymysql import Error
 import time
 
 def connect_to_db():
@@ -9,14 +9,14 @@ def connect_to_db():
     
     for i in range(max_retries):
         try:
-            connection = mysql.connector.connect(
+            connection = pymysql.connect(
                 host='localhost',
                 port=3306,
                 database='pyllmdb',
                 user='pyllmuser',
                 password='pyllmpassword'
             )
-            if connection.is_connected():
+            if connection.open:
                 return connection
         except Error as e:
             print(f"연결 실패 ({i+1}/{max_retries}): {e}")
@@ -57,7 +57,7 @@ def insert_user(connection, name, email):
 def get_users(connection):
     """사용자 목록 조회 (Read)"""
     try:
-        cursor = connection.cursor(dictionary=True)
+        cursor = connection.cursor(pymysql.cursors.DictCursor)
         cursor.execute("SELECT * FROM users")
         rows = cursor.fetchall()
         print("\n--- 사용자 목록 ---")
@@ -92,7 +92,7 @@ def delete_user(connection, name):
 def main():
     conn = connect_to_db()
     
-    if conn and conn.is_connected():
+    if conn and conn.open:
         # 1. 테이블 생성
         create_table(conn)
         
