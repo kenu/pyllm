@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 # 시계열 데이터 생성
 np.random.seed(42)
-dates = pd.date_range('2023-01-01', periods=252, freq='D')
+dates = pd.date_range('2026-01-01', periods=252, freq='D')
 
 # 주가 시뮬레이션
 trend = np.linspace(100, 150, 252)

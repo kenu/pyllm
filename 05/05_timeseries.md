@@ -11,16 +11,16 @@ import matplotlib.pyplot as plt
 
 # 다양한 방법으로 DatetimeIndex 생성
 # 1. date_range 사용
-dates1 = pd.date_range(start='2023-01-01', end='2023-12-31', freq='D')
-dates2 = pd.date_range(start='2023-01-01', periods=365, freq='D')
-dates3 = pd.date_range(start='2023-01-01', periods=12, freq='M')  # 월말 기준
+dates1 = pd.date_range(start='2026-01-01', end='2026-12-31', freq='D')
+dates2 = pd.date_range(start='2026-01-01', periods=365, freq='D')
+dates3 = pd.date_range(start='2026-01-01', periods=12, freq='M')  # 월말 기준
 
 # 2. 특정 빈도
-daily = pd.date_range('2023-01-01', periods=10, freq='D')  # 일별
-weekly = pd.date_range('2023-01-01', periods=10, freq='W')  # 주별
-monthly = pd.date_range('2023-01-01', periods=10, freq='M')  # 월별
-quarterly = pd.date_range('2023-01-01', periods=10, freq='Q')  # 분기별
-yearly = pd.date_range('2023-01-01', periods=10, freq='Y')  # 연별
+daily = pd.date_range('2026-01-01', periods=10, freq='D')  # 일별
+weekly = pd.date_range('2026-01-01', periods=10, freq='W')  # 주별
+monthly = pd.date_range('2026-01-01', periods=10, freq='M')  # 월별
+quarterly = pd.date_range('2026-01-01', periods=10, freq='Q')  # 분기별
+yearly = pd.date_range('2026-01-01', periods=10, freq='Y')  # 연별
 
 print("일별 날짜:")
 print(daily[:5])
@@ -32,7 +32,7 @@ print(weekly[:5])
 ```python
 # 샘플 주가 데이터 생성
 np.random.seed(42)
-dates = pd.date_range('2023-01-01', periods=252, freq='D')  # 1년 영업일
+dates = pd.date_range('2026-01-01', periods=252, freq='D')  # 1년 영업일
 
 # 추세 + 계절성 + 노이즈
 trend = np.linspace(100, 150, 252)
@@ -58,9 +58,9 @@ print(f"\n데이터 기간: {stock_df.index.min()} ~ {stock_df.index.max()}")
 ### 1. 시간 기반 필터링
 ```python
 # 특정 기간 필터링
-q1_2023 = stock_df['2023-01-01':'2023-03-31']
-q2_2023 = stock_df['2023-Q2']
-first_half = stock_df['2023-H1']
+q1_2026 = stock_df['2026-01-01':'2026-03-31']
+q2_2026 = stock_df['2026-04-01':'2026-06-30'] # '2026-Q2'를 명시적인 날짜 범위로 변경
+first_half = stock_df['2026-01-01':'2026-06-30'] # '2026-H1'를 명시적인 날짜 범위로 변경
 
 # 특정 월/요일 필터링
 january = stock_df[stock_df.index.month == 1]
@@ -70,8 +70,8 @@ mondays = stock_df[stock_df.index.dayofweek == 0]  # Monday=0
 # morning_trades = stock_df.between_time('09:00', '12:00')
 
 print("1분기 데이터:")
-print(q1_2023.head())
-print(f"\n1분기 평균 종가: {q1_2023['종가'].mean():.2f}")
+print(q1_2026.head())
+print(f"\n1분기 평균 종가: {q1_2026['종가'].mean():.2f}")
 ```
 
 ### 2. 리샘플링 (Resampling)
@@ -399,7 +399,7 @@ def create_portfolio_data():
         # 각 주식별로 다른 패턴 생성
         np.random.seed(hash(stock) % 1000)
         
-        dates = pd.date_range('2023-01-01', periods=252, freq='D')
+        dates = pd.date_range('2026-01-01', periods=252, freq='D')
         
         # 기본 추세 (주식별로 다름)
         base_trend = np.random.uniform(80, 120)
