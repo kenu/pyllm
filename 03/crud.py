@@ -1,21 +1,22 @@
 import pymysql
 from pymysql import Error
 import time
+import sys
+import os
+
+# 프로젝트 루트의 utils 모듈을 가져오기 위해 경로 추가
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from utils import get_db_config
 
 def connect_to_db():
-    """MariaDB 데이터베이스에 연결 시도 (재시도 로직 포함)"""
+    """MariaDB 데이터베이스에 연결 시도 (환경 변수 사용)"""
     max_retries = 5
     retry_delay = 5
+    db_config = get_db_config()
 
     for i in range(max_retries):
         try:
-            connection = pymysql.connect(
-                host='localhost',
-                port=3306,
-                database='pyllmdb',
-                user='pyllmuser',
-                password='pyllmpassword'
-            )
+            connection = pymysql.connect(**db_config)
             if connection.open:
                 return connection
         except Error as e:
