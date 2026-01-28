@@ -14,10 +14,20 @@ def fetch_json(url: str) -> dict:
         method="GET",  # GET 방식 요청
     )
 
-    # 요청 보내고 응답 받기 (타임아웃 10초)
-    with urllib.request.urlopen(req, timeout=10) as resp:
-        data = resp.read().decode("utf-8")  # 바이너리 데이터를 문자열로 변환
-        return json.loads(data)              # JSON 문자열을 딕셔너리로 변환
+    try:
+        # 요청 보내고 응답 받기 (타임아웃 10초)
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            data = resp.read().decode("utf-8")  # 바이너리 데이터를 문자열로 변환
+            return json.loads(data)              # JSON 문자열을 딕셔너리로 변환
+    except urllib.error.URLError as e:
+        print(f"네트워크 오류 발생: {e.reason}")
+        return {}
+    except json.JSONDecodeError:
+        print("JSON 파싱 오류 발생")
+        return {}
+    except Exception as e:
+        print(f"예상치 못한 오류 발생: {e}")
+        return {}
 
 
 def main():

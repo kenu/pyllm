@@ -6,7 +6,7 @@ def connect_to_db():
     """MariaDB 데이터베이스에 연결 시도 (재시도 로직 포함)"""
     max_retries = 5
     retry_delay = 5
-    
+
     for i in range(max_retries):
         try:
             connection = pymysql.connect(
@@ -91,27 +91,30 @@ def delete_user(connection, name):
 
 def main():
     conn = connect_to_db()
-    
+
     if conn and conn.open:
-        # 1. 테이블 생성
-        create_table(conn)
-        
-        # 2. 데이터 삽입 (C)
-        insert_user(conn, "Alice", "alice@example.com")
-        insert_user(conn, "Bob", "bob@example.com")
-        
-        # 3. 데이터 조회 (R)
-        get_users(conn)
-        
-        # 4. 데이터 수정 (U)
-        update_user_email(conn, "Alice", "alice_new@example.com")
-        get_users(conn)
-        
-        # 5. 데이터 삭제 (D)
-        delete_user(conn, "Bob")
-        get_users(conn)
-        
-        conn.close()
+        try:
+            # 1. 테이블 생성
+            create_table(conn)
+
+            # 2. 데이터 삽입 (C)
+            insert_user(conn, "Alice", "alice@example.com")
+            insert_user(conn, "Bob", "bob@example.com")
+
+            # 3. 데이터 조회 (R)
+            get_users(conn)
+
+            # 4. 데이터 수정 (U)
+            update_user_email(conn, "Alice", "alice_new@example.com")
+
+            # 5. 데이터 삭제 (D)
+            delete_user(conn, "Bob")
+
+            # 최종 목록 확인
+            get_users(conn)
+        finally:
+            conn.close()
+            print("데이터베이스 연결이 닫혔습니다.")
         print("연결 종료")
 
 if __name__ == "__main__":

@@ -3,17 +3,27 @@ import requests
 
 # requests 라이브러리를 사용하여 JSON 데이터 가져오는 함수
 def fetch_json(url: str) -> dict:
-    # GET 요청 보내기
-    resp = requests.get(
-        url,
-        headers={
-            "User-Agent": "python-basic/1.0",  # 클라이언트 정보
-            "Accept": "application/json",      # JSON 응답 요청
-        },
-        timeout=10,  # 타임아웃 10초
-    )
-    resp.raise_for_status()  # HTTP 에러가 있으면 예외 발생
-    return resp.json()       # JSON 응답을 딕셔너리로 변환하여 반환
+    try:
+        # GET 요청 보내기
+        resp = requests.get(
+            url,
+            headers={
+                "User-Agent": "python-basic/1.0",  # 클라이언트 정보
+                "Accept": "application/json",      # JSON 응답 요청
+            },
+            timeout=10,  # 타임아웃 10초
+        )
+        resp.raise_for_status()  # HTTP 에러가 있으면 예외 발생
+        return resp.json()       # JSON 응답을 딕셔너리로 변환하여 반환
+    except requests.exceptions.HTTPError as e:
+        print(f"HTTP 오류 발생: {e}")
+    except requests.exceptions.ConnectionError:
+        print("연결 오류 발생")
+    except requests.exceptions.Timeout:
+        print("시간 초과")
+    except requests.exceptions.RequestException as e:
+        print(f"요청 중 오류 발생: {e}")
+    return {}
 
 
 def main():
