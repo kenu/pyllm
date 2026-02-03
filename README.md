@@ -46,6 +46,15 @@ pyllm/
 ├── 02_llm.md       # LLM 구조 및 응용
 ├── 03_database.md  # 데이터베이스 및 LLM 통합
 ├── 04_api.md       # API 활용 및 보안
+├── 05_timeseries.md  # 시계열 데이터 분석
+├── 06_data_cleaning.md # 데이터 전처리
+├── 07_visualization.md # 데이터 시각화
+├── 08_interactive_dashboard.md # 대시보드
+├── 09_machine_learning.md # 머신러닝
+├── 10_deep_learning.md # 딥러닝
+├── 11_database_advanced.md # DB 고급
+├── 12_web_scraping_api.md # 웹 스크래핑
+├── 13_cloud_deployment.md # 클라우드 배포
 └── pyllm.md        # 메인 가이드 (인덱스)
 ```
 
